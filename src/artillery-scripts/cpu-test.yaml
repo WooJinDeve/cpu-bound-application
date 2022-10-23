@@ -1,0 +1,12 @@
+config:
+  target: "http://localhost:8080"
+  phases:
+    - duration: 360
+      arrivalRate: 1
+      name: Warm up
+
+scenarios:
+  - name: "just get hash"
+    flow:
+      - get:
+          url: "/hash/123"
