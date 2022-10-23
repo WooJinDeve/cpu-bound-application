@@ -14,8 +14,12 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
+      
+      # gradle 권한 오류 체크 
+      - name: Grant execution permission for gradlew
+        run: chmod +x gradlew
         
-      ## gradle build
+      # gradle build
       - name: Build with Gradle
         run: ./gradlew bootJar
     
