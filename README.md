@@ -5,7 +5,6 @@
 - `npm install -g artillery`
 
 #### 스크립트
-
 - `.yaml` 확장자로 작성
 
 ```jsx
