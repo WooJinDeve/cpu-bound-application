@@ -1,5 +1,7 @@
 package cpu.bound.application;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,11 +15,11 @@ import java.security.NoSuchAlgorithmException;
 public class HashController {
 
     @RequestMapping("/hash/{input}")
-    public String getDigest(@PathVariable("input") String input) throws NoSuchAlgorithmException {
+    public ResponseEntity<?> getDigest(@PathVariable("input") String input) throws NoSuchAlgorithmException {
         for(int i = 0; i < 100_000; i++) {
             input = getMD5Digest(input);
         }
-        return input;
+        return ResponseEntity.ok(input);
     }
 
     @RequestMapping("/hello")
