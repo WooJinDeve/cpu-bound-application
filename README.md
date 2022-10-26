@@ -60,5 +60,43 @@ docker run -d --name agent --link controller:controller ngrinder/agent
 
 ![image](https://user-images.githubusercontent.com/106054507/197990460-754a6666-661c-43be-a916-b9bf20bc26fe.png)
 
+#### 스크립트
+``` groovy
+@RunWith(GrinderRunner)
+class TestRunner {
+	public static GTest test1
+	public static HTTPRequest request
+	public static Map<String, String> headers = [:]
+	public static Map<String, Object> params = [:]
+	public static List<Cookie> cookies = []
 
+	@BeforeProcess
+	public static void beforeProcess() {
+		HTTPRequestControl.setConnectionTimeout(300000)
+		
+		test1 = new GTest(1, "GET /hash/1")
+		
+		request = new HTTPRequest()
+		
+		grinder.logger.info("before process.")
+	}
 
+	@BeforeThread
+	public void beforeThread() {
+		test1.record(this, "test1")
+		
+		grinder.statistics.delayReports = true
+		grinder.logger.info("before thread.")
+	}
+
+	@Test
+	public void test1() {
+		HTTPResponse response = request.GET("http://localhost:8080/hash/1", params)
+		if (response.statusCode == 301 || response.statusCode == 302) {
+			grinder.logger.warn("Warning. The response may not be correct. The response code was {}.", response.statusCode)
+		} else {
+			assertThat(response.statusCode, is(200))
+		}
+	}
+}
+```
