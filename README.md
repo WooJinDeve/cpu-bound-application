@@ -1,10 +1,10 @@
-## 기본 준비
+## artillery.io
 
 - `node` 및 `visual studio` 설치
 - `artillery.io` : [`https://www.artillery.io/docs`](https://www.artillery.io/docs)
 - `npm install -g artillery`
 
-## 스크립트
+#### 스크립트
 
 - `.yaml` 확장자로 작성
 
@@ -46,7 +46,20 @@ scenarios:
             productId: "{{ productId }}"
 ```
 
-## Test
+#### Test
 
 - 실행 :  `artillery.cmd run --output report.json ./cpu-test.yaml`
 - html : `artillery.cmd report ./report.json`
+
+
+## nginder 
+- docker intsall 
+``` docker
+docker run -d -v ~/ngrinder-controller:/opt/ngrinder-controller --name controller -p 80:80 -p 16001:16001 -p 12000-12009:12000-12009 ngrinder/controller
+docker run -d --name agent --link controller:controller ngrinder/agent
+```
+
+![image](https://user-images.githubusercontent.com/106054507/197990460-754a6666-661c-43be-a916-b9bf20bc26fe.png)
+
+
+
